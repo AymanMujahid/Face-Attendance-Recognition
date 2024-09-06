@@ -3,5 +3,3 @@ opencv-python
 sqlite3
 pandas
 smtplib
-
-
