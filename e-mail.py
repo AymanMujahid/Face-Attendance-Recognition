@@ -50,7 +50,7 @@ def job():
         
         send_email_with_attachment(
             subject="Employee Attendance Report",
-            body="Dear HR,\n\nPlease find attached the latest employee attendance report.\n\nBest regards,\nYour Name",
+            body="Dear HR,\n\nPlease find attached the latest employee attendance report.\n\nBest regards,\nAyman",
             to_email="hr@example.com",
             file_path=file_path
         )
