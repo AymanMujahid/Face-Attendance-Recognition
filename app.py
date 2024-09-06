@@ -16,8 +16,7 @@ def capture_image(camera_type='entry'):
             logging.info("Failed to take photo")
             continue
         
-        cv2.imshow('Camera Feed', frame)
-        
+        # عرض الفيديو مع التعرف على الوجوه
         employee_id = recognize_face(frame)
         if employee_id:
             print(f"Match found for employee: {employee_id}")
@@ -27,6 +26,9 @@ def capture_image(camera_type='entry'):
             elif camera_type == 'exit':
                 print(f"تم تسجيل خروج الموظف: {employee_id}")
                 log_entry_exit(employee_id, exit_time=time.strftime('%Y-%m-%d %H:%M:%S'))
+
+        # عرض الفيديو
+        cv2.imshow('Camera Feed', frame)
         
         if cv2.waitKey(1) & 0xFF == ord('q'):  
             break

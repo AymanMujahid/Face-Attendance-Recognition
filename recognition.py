@@ -1,17 +1,28 @@
 import face_recognition
+import cv2
 
 def recognize_face(image):
-    # print("جاري التعرف على الوجه...")
     face_locations = face_recognition.face_locations(image)
     face_encodings = face_recognition.face_encodings(image, face_locations)
     
     if len(face_encodings) > 0:
-        # print("تم العثور على وجه")
-        return match_face_with_employee(face_encodings[0])
-        # print("لم يتم العثور على وجوه")
+        employee_id = match_face_with_employee(face_encodings[0])
+
+        if employee_id:
+            for face_location in face_locations:
+                draw_face_mask(image, face_location, employee_id)
+            return employee_id
     else:
         print("No faces detected.")
         return None
+
+def draw_face_mask(image, face_location, employee_name):
+    top, right, bottom, left = face_location
+    
+    cv2.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 2)
+    
+    cv2.putText(image, employee_name, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
+
 
 def match_face_with_employee(face_encoding):
     known_employee_encodings = load_known_faces() 
@@ -30,14 +41,12 @@ def match_face_with_employee(face_encoding):
 def load_known_faces():
     known_face_encodings = {}
     employee_images = {
-        "Ayman_Mujahid"  : "C:\\FaceRecognation\\data\\h.jpeg",
         "Ahmed_muhammed" : "C:\\FaceRecognation\\data\\h01.jpeg",
         "Mustafa_Ashraf" : "C:\\FaceRecognation\\data\\h02.jpeg",
         "Hazem_AbdElstar": "C:\\FaceRecognation\\data\\h03.jpeg",
         "Muhammed_Osama" : "C:\\FaceRecognation\\data\\h04.jpeg",
         "Ayman_badr"     : "C:\\FaceRecognation\\data\\h05.jpeg",
         "Amer_fariid"    : "C:\\FaceRecognation\\data\\h06.jpeg",
-        "Muhammed_shihata": "C:\\FaceRecognation\\data\\h07.jpeg",
 
     }
     
