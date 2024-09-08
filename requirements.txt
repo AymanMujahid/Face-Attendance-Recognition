@@ -1,5 +1,6 @@
-face_recognition
-opencv-python
+face_recognition == 1.3.0
+opencv-python == 4.10.0.84
 sqlite3
-pandas
+pandas == 2.2.2
 smtplib
+schedule == 1.2.2
